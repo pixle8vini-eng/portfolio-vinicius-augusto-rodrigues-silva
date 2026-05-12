@@ -1,0 +1,86 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    //
+    // Collection: users
+    // Document ID: {uid}
+    // Fields:
+    //   - uid: string (required)
+    //   - email: string (required, email format)
+    //   - displayName: string (optional)
+    //   - photoURL: string (optional, url format)
+    //   - createdAt: string (optional, date-time format)
+    //
+    // Collection: files
+    // Document ID: {fileId}
+    // Fields:
+    //   - id: string (required)
+    //   - uid: string (required)
+    //   - name: string (required)
+    //   - content: string (required)
+    //   - updatedAt: number (required)
+    //
+    // ===============================================================
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isDocOwner() {
+      return isAuthenticated() && request.auth.uid == resource.data.uid;
+    }
+
+    function isValidEmail(email) {
+      return email is string && email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+    }
+
+    function isValidUser(data) {
+      return data.keys().hasAll(['uid', 'email']) &&
+             data.uid == request.auth.uid &&
+             isValidEmail(data.email) &&
+             (data.displayName is string || !('displayName' in data)) &&
+             (data.photoURL is string || !('photoURL' in data));
+    }
+
+    function isValidFile(data) {
+      return data.keys().hasAll(['id', 'uid', 'name', 'content', 'updatedAt']) &&
+             data.id is string && data.id.size() < 100 &&
+             data.uid == request.auth.uid &&
+             data.name is string && data.name.size() < 255 &&
+             data.content is string && data.content.size() < 1000000 &&
+             data.updatedAt is number;
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+
+    match /users/{uid} {
+      allow read: if isOwner(uid);
+      allow create: if isOwner(uid) && isValidUser(request.resource.data);
+      allow update: if isOwner(uid) && isValidUser(request.resource.data);
+    }
+
+    match /files/{fileId} {
+      allow read: if isDocOwner();
+      allow create: if isAuthenticated() && isValidFile(request.resource.data);
+      allow update: if isDocOwner() && isValidFile(request.resource.data);
+      allow delete: if isDocOwner();
+    }
+
+    match /test/connection {
+      allow read: if true;
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "name": "Blue Markdown Generator",
+  "description": "A powerful, browser-based Markdown editor with real-time preview, local storage, Firebase sync, Cloud Storage for assets, and multi-format export.",
+  "requestFramePermissions": []
+}

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue Markdown Generator</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-[#0a0f1e] text-[#e2e8f0] font-sans h-screen flex flex-col overflow-hidden">
+    <header class="flex items-center justify-between px-6 py-3 bg-[#1e3a8a] text-white z-50 shadow-lg">
+        <div class="flex items-center gap-6">
+            <button id="toggleSidebar" class="p-2 hover:bg-white/10 rounded-full transition-all" title="File Explorer">
+                <i data-lucide="menu" size="20"></i>
+            </button>
+            <div class="hidden md:flex items-center gap-2" id="toolbar">
+                <!-- Toolbar buttons injected by JS -->
+            </div>
+        </div>
+        <div class="flex items-center gap-6">
+            <div id="userProfile" class="hidden flex items-center gap-3">
+                <img id="userAvatar" class="w-8 h-8 rounded-full border border-white/20" src="" alt="User Avatar" referrerPolicy="no-referrer">
+                <span id="userName" class="hidden md:inline text-xs font-medium tracking-wide text-white/80"></span>
+                <button id="logoutBtn" class="p-2 hover:bg-white/10 rounded-full transition-all text-white/70 hover:text-white" title="Logout">
+                    <i data-lucide="log-out" size="16"></i>
+                </button>
+            </div>
+            <button id="loginBtn" class="flex items-center gap-2 px-4 py-1.5 bg-white text-[#1e3a8a] hover:bg-gray-100 rounded-full text-xs font-bold transition-all shadow-sm">
+                <i data-lucide="log-in" size="14"></i>
+                Login
+            </button>
+            <div class="flex items-center gap-2 px-3 py-1 bg-white/10 rounded-full text-xs font-medium border border-white/10">
+                <i data-lucide="file-text" size="14" class="text-white/60"></i>
+                <input id="fileNameInput" class="bg-transparent border-none outline-none focus:ring-0 w-32 md:w-48 text-white placeholder-white/40" value="Welcome file">
+            </div>
+            <div class="flex items-center gap-1 bg-white/10 rounded-full p-1 border border-white/10">
+                <button id="viewEditor" class="px-4 py-1 text-[10px] uppercase tracking-widest font-bold rounded-full transition-all bg-white/20 text-white">Editor</button>
+                <button id="viewSplit" class="px-4 py-1 text-[10px] uppercase tracking-widest font-bold rounded-full transition-all text-white/50 hover:text-white">Split</button>
+                <button id="viewPreview" class="px-4 py-1 text-[10px] uppercase tracking-widest font-bold rounded-full transition-all text-white/50 hover:text-white">Preview</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex flex-1 overflow-hidden relative">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="absolute left-0 top-0 bottom-0 w-72 bg-[#0f172a] border-r border-white/5 z-50 flex flex-col shadow-2xl transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) -translate-x-full">
+            <div class="p-6 border-b border-white/5 flex items-center justify-between">
+                <h2 class="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 flex items-center gap-3">
+                    <i data-lucide="folder" size="14"></i>
+                    Library
+                </h2>
+                <button id="newFile" class="p-2 bg-white text-black rounded-full hover:bg-gray-200 transition-all" title="New File">
+                    <i data-lucide="plus" size="16"></i>
+                </button>
+            </div>
+            <div id="fileList" class="flex-1 overflow-y-auto p-4 space-y-2">
+                <!-- File list injected by JS -->
+            </div>
+            <div class="p-6 border-t border-white/5 flex flex-col gap-4">
+                <div class="flex items-center justify-between text-[10px] uppercase tracking-widest text-gray-500">
+                    <span id="fileCount">0 files</span>
+                    <div class="flex gap-3">
+                        <button id="importBtn" class="hover:text-white transition-colors" title="Import">
+                            <i data-lucide="upload" size="14"></i>
+                        </button>
+                        <button class="hover:text-white"><i data-lucide="settings" size="14"></i></button>
+                    </div>
+                </div>
+                <div class="relative">
+                    <button id="downloadMenuBtn" class="w-full flex items-center justify-between px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-[10px] uppercase tracking-widest font-bold text-gray-300 hover:bg-white/10 transition-all">
+                        <span class="flex items-center gap-2">
+                            <i data-lucide="download" size="14"></i>
+                            Export
+                        </span>
+                        <i data-lucide="chevron-up" size="14"></i>
+                    </button>
+                    <div id="downloadMenu" class="hidden absolute bottom-full left-0 w-full mb-2 bg-[#1a1a1a] border border-white/10 rounded-xl shadow-2xl overflow-hidden z-[60]">
+                        <button data-format="md" class="w-full text-left px-4 py-3 text-[10px] uppercase tracking-widest font-bold text-gray-400 hover:bg-white/5 hover:text-white transition-all">Markdown</button>
+                        <button data-format="html" class="w-full text-left px-4 py-3 text-[10px] uppercase tracking-widest font-bold text-gray-400 hover:bg-white/5 hover:text-white transition-all">HTML</button>
+                        <button data-format="txt" class="w-full text-left px-4 py-3 text-[10px] uppercase tracking-widest font-bold text-gray-400 hover:bg-white/5 hover:text-white transition-all">Plain Text</button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Hidden file input for import -->
+        <input type="file" id="fileInput" class="hidden" accept=".md,.txt,.markdown">
+        <input type="file" id="imageInput" class="hidden" accept="image/*">
+
+        <!-- Editor Pane -->
+        <div id="editorPane" class="flex flex-col h-full bg-[#0a0f1e] w-full transition-all duration-500">
+            <textarea id="editor" class="flex-1 p-12 md:p-20 font-mono text-[14px] leading-[1.8] resize-none outline-none bg-transparent text-[#cbd5e1] selection:bg-blue-500/20 placeholder-slate-800" placeholder="Type something beautiful..." spellcheck="false"></textarea>
+        </div>
+
+        <!-- Preview Pane -->
+        <div id="previewPane" class="hidden flex flex-col h-full bg-[#0a0f1e] overflow-y-auto w-full transition-all duration-500 border-l border-white/5">
+            <div id="preview" class="prose prose-invert max-w-3xl mx-auto p-12 md:p-20"></div>
+        </div>
+    </main>
+
+    <footer class="px-6 py-2 bg-[#1e3a8a] text-[10px] uppercase tracking-[0.2em] font-bold text-white/70 flex justify-between items-center shadow-[0_-4px_10px_rgba(0,0,0,0.1)]">
+        <div class="flex items-center gap-8">
+            <span id="wordCount" class="text-white">0 Words</span>
+            <span id="charCount" class="text-white">0 Chars</span>
+        </div>
+        <div class="flex items-center gap-3">
+            <div class="w-1.5 h-1.5 rounded-full bg-white/40"></div>
+            <span class="text-white/60">Sync Active</span>
+        </div>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
+
