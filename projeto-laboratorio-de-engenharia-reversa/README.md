@@ -42,8 +42,6 @@ Utilizando apenas APIs nativas do navegador:
 * **Resiliência:** Arquitetura 100% Offline-First.
 * **Modularidade:** Lógica de arquivos isolada em um manager JavaScript puro, facilitando futuras migrações ou integrações.
 
-![Arquitetura de Dados](./image/image1.png)
-*Figura 2: Diagrama de fluxo de dados local entre o buffer de edição e o armazenamento persistente.*
 
 ## 🔧 Execução do Laboratório
 1. **Clone:** `git clone ...`
