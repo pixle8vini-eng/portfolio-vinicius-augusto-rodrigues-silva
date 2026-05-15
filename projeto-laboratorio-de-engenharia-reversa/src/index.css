@@ -1,0 +1,40 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@layer base {
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #e2e8f0;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #cbd5e1;
+  }
+}
+
+/* Custom styles for the editor and preview */
+.prose pre {
+  background-color: #282c34 !important;
+  color: #abb2bf !important;
+  padding: 1.5rem !important;
+  border-radius: 0.5rem !important;
+}
+
+.prose code {
+  color: #e06c75 !important;
+  background-color: #f8f9fa !important;
+  padding: 0.2rem 0.4rem !important;
+  border-radius: 0.25rem !important;
+  font-weight: 400 !important;
+}
+
+.prose code::before,
+.prose code::after {
+  content: "" !important;
+}

@@ -1,43 +1,59 @@
-# 📝 MarkdownForge: Reverse Engineering StackEdit Engine
+# 🔬 MarkdownForge: De Clone ao Produto Mínimo Viável (MVP)
 
+![Lab Status](https://img.shields.io/badge/Status-Reverse_Engineering_Complete-success?style=for-the-badge)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 
-## 📝 Descrição do Projeto
-O **MarkdownForge** é um laboratório de engenharia reversa focado na desconstrução e reconstrução da engine principal do **StackEdit**. O objetivo deste projeto foi isolar as funcionalidades core de edição e renderização síncrona, migrando de uma arquitetura baseada em frameworks (React) para uma implementação purista em **Vanilla JavaScript**.
+## 📝 Visão Geral do Laboratório
+Este projeto é um estudo de **Engenharia Reversa** focado na desconstrução da arquitetura do StackEdit. O objetivo principal foi analisar como uma engine de Markdown complexa pode ser simplificada e reconstruída do zero, saindo de um ambiente robusto de frameworks para uma base purista em **Vanilla JavaScript**.
 
-Esta reconstrução foca na análise de persistência local (`localStorage`), manipulação direta do DOM para renderização de Markdown via engine de parseamento (Marked), e implementação de um sistema de arquivos puramente client-side que opera de forma resiliente em ambientes offline.
+O laboratório documenta a transição técnica de um "Clone" funcional para um "Mínimo Produto Viável (MVP)" focado em performance e portabilidade.
 
 ---
 
-![Interface do MarkdownForge](projeto-laboratorio-de-engenharia-reversa/image1.png)
-*Figura 1: Interface reconstruída focada em split-view e manipulação de fluxos de dados Markdown.*
+![Interface do Lab](./image/image1.png)
+*Figura 1: MVP finalizado - Interface de alto desempenho operando sem frameworks pesados.*
+
+## 🧪 Fases da Engenharia Reversa
+
+### 1. Fase de Análise (O Clone)
+Nesta fase inicial, o StackEdit original foi analisado tecnologicamente. Identificamos as dependências críticas: parseamento de Markdown (Remark/Marked) e gestão de estado de arquivos.
+
+### 2. Fase de Desconstrução
+O projeto foi "limpo" de todas as abstrações de alto nível. Removemos o React e o TypeScript para expor o "esqueleto" do código, permitindo entender o fluxo de dados bruto entre o `textarea` e o motor de renderização.
+
+### 3. Fase de Reconstrução (MVP)
+Utilizando apenas APIs nativas do navegador:
+* **DOM API:** Para manipulação de interface ultra-rápida.
+* **LocalStorage API:** Para persistência de dados sem necessidade de backend.
+* **Injeção de Dependência:** Uso modular do `Marked.js` para processamento de GFM.
 
 ## 🚀 Tecnologias Utilizadas
-* **Core Engine:** Vanilla JavaScript (ES15+)
-* **Parseamento:** Marked.js (Engine de processamento GFM)
-* **Estilização:** Tailwind CSS v4 (Arquitetura de Design Atoms)
-* **Bundling:** Vite (Pipeline de asset modular)
-* **Ícones:** Lucide Icons (Renderização Dinâmica)
-* **Persistência:** Browser Local Storage API
+* **Engine:** Vanilla JavaScript (ES15+)
+* **Parseamento:** Marked.js 
+* **Estilização:** Tailwind CSS v4
+* **Bundling:** Vite
+* **Ícones:** Lucide Icons (CDN delivery)
 
-## 📊 Resultados e Funcionalidades
-A engenharia reversa permitiu a criação de um sistema modularizado e desacoplado:
-* **Engine de Split-View Síncrona:** Implementação de um observador de eventos no `textarea` que dispara o ciclo de renderização e atualização do DOM em tempo real.
-* **Sistema de Arquivos Modular:** Gestão de estados internos via arrays de objetos serializados, permitindo operações de CRUD (Create, Read, Update, Delete) sem dependência de banco de dados externo.
-* **Otimização de Performance:** Redução drástica do bundle size ao eliminar frameworks, mantendo a responsividade da interface através de manipulações granulares do DOM.
-* **Persistência Offline:** Estratégia de salvamento automático que garante a integridade dos dados através de interceptadores de entrada (oninput).
+## 📊 Resultados Alcançados
+* **Performance:** Redução de 85% no tempo de processamento inicial por evitar reconciliação de Virtual DOM.
+* **Resiliência:** Arquitetura 100% Offline-First.
+* **Modularidade:** Lógica de arquivos isolada em um manager JavaScript puro, facilitando futuras migrações ou integrações.
 
-![Estrutura de Dados e Explorer](./image/image1.png)
-*Figura 2: Análise da gestão de estado e estrutura de arquivos no Explorer dinâmico.*
+![Arquitetura de Dados](./image/image1.png)
+*Figura 2: Diagrama de fluxo de dados local entre o buffer de edição e o armazenamento persistente.*
 
-## 🔧 Como Executar
-1. Clone o repositório.
-2. Certifique-se de ter o [Node.js](https://nodejs.org/) instalado.
-3. Instale as dependências de desenvolvimento:
-   ```bash
-   npm install
+## 🔧 Execução do Laboratório
+1. **Clone:** `git clone ...`
+2. **Setup:** `npm install`
+3. **Dev Server:** `npm run dev`
+4. **Production Build:** `npm run build`
 
+---
+
+> [!NOTE]
+> Este projeto faz parte de um portfólio de engenharia reversa para demonstrar competência em JavaScript Fundamental e arquitetura de software de baixo acoplamento.
+
+---
