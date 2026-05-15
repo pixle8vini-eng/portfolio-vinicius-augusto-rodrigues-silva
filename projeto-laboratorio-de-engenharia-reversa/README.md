@@ -1,5 +1,3 @@
-# Laboratório de Engenharia Reversa
-
 # 📝 MarkdownForge: Reverse Engineering StackEdit Engine
 
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
