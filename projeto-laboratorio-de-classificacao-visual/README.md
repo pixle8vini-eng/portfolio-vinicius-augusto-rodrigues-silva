@@ -19,7 +19,7 @@ O modelo foi exportado em **TensorFlow.js**, possibilitando execução diretamen
 
 ---
 
-![Preview do Sistema](projeto-laboratorio-de-classificacao-visual/IMG.png)
+![Preview do Sistema](https://github.com/pixle8vini-eng/portfolio-vinicius-augusto-rodrigues-silva/blob/006dde6f09c4af90ee333f8d828154530bec98ac/projeto-laboratorio-de-classificacao-visual/IMG.png)
 
 *Figura 1: Interface do modelo realizando classificação em tempo real utilizando webcam.*
 
