@@ -13,7 +13,7 @@ Esta reconstrução foca na análise de persistência local (`localStorage`), ma
 
 ---
 
-![Interface do MarkdownForge]()
+![Interface do MarkdownForge](projeto-laboratorio-de-engenharia-reversa/image1.png)
 *Figura 1: Interface reconstruída focada em split-view e manipulação de fluxos de dados Markdown.*
 
 ## 🚀 Tecnologias Utilizadas
