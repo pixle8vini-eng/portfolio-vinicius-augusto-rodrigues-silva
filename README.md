@@ -15,6 +15,7 @@ Atualmente cursando o 6º período de Ciência da Computação na Universidade C
  
 * **Habilidades Técnicas:** Python, C, Java, SQL.
 * **Habilidades Socioemocionais:** Trabalho em equipe, comunicação assertiva e pensamento crítico.
+* **Experiência/Projetos Relevantes:** Atuei em Projeto Universitário de Engenharia de Software e Banco de Dados onde desenvolvi soluções baseadas em Arduino em dois projetos acadêmicos distintos. No primeiro, voltado para Engenharia de Software, colaborei na criação de um sistema de irrigação automatizada. No segundo, focado em Banco de Dados, utilizei a plataforma de hardware para construir um jogo de futebol de carrinhos, estruturando o armazenamento e a atualização do placar em tempo real.
 
 ---
  
